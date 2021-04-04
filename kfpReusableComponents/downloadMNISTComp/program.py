@@ -2,6 +2,7 @@ import argparse
 import gzip, wget
 import struct, os
 import numpy as np
+from pathlib import Path
 
 
 def downloadFile(website):
@@ -180,16 +181,15 @@ def main():
     # -----------------------------
     print(f'\nresult = {result}\n')
     if args.output_path is not None:
+        Path(args.output_path).parent.mkdir(parents=True, exist_ok=True)
         with open( args.output_path, 'w' ) as fOut:
             fOut.write( f'{result}' )
-
-
-    # if True:
-    #     readImages('data/train-images-idx3-ubyte')
-
-        
     
     return
 
 if __name__ == "__main__":
+    # http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz
+    # http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz
+    # http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz
+    # http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz
     main()
