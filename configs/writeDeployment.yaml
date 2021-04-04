@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: write-data
+  labels:
+    app: write-data
+spec:
+  replicas: 1
+  # -------------------------------------------------
+  # This is used for creating connections ...
+  # This doesn't need connections at the momnent
+  # -------------------------------------------------
+  selector:
+    matchLabels:
+      app: write-data # All pods/deployments that match label app=nginx to create a connection
+  template:
+    # -----------------------------------------------
+    # This entire configuration is associated with
+    # a pod. Config within a config
+    # -----------------------------------------------
+    metadata:
+      labels:
+        app: write-data # These are just labels
+    # -----------------------------------------------
+    # Blueprint for a pod ...
+    # -----------------------------------------------
+    spec:
+      containers:
+        - name: write-data
+          # image: 387826921024.dkr.ecr.ap-southeast-1.amazonaws.com/write-data:0.01
+          image: write-data:0.01
+          imagePullPolicy: Never #IfNotPresent
+          volumeMounts:
+            - mountPath: "/data"
+              name: write-data
+      volumes:
+        - name: write-data
+          persistentVolumeClaim: 
+            claimName: pvc0001

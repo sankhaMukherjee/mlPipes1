@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: read-data
+  labels:
+    app: read-data
+spec:
+  replicas: 1
+  # -------------------------------------------------
+  # This is used for creating connections ...
+  # This doesn't need connections at the momnent
+  # -------------------------------------------------
+  selector:
+    matchLabels:
+      app: read-data # All pods/deployments that match label app=nginx to create a connection
+  template:
+    # -----------------------------------------------
+    # This entire configuration is associated with
+    # a pod. Config within a config
+    # -----------------------------------------------
+    metadata:
+      labels:
+        app: read-data # These are just labels
+    # -----------------------------------------------
+    # Blueprint for a pod ...
+    # -----------------------------------------------
+    spec:
+      containers:
+        - name: read-data
+          image: read-data:0.01
+          imagePullPolicy: Never
+          volumeMounts:
+            - mountPath: "/data"
+              name: read-data
+      volumes:
+        - name: read-data
+          persistentVolumeClaim: 
+            claimName: pvc0001

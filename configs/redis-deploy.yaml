@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  labels:
+    app: redis
+spec:
+  replicas: 1
+  # -------------------------------------------------
+  # This is used for creating connections ...
+  # This doesn't need connections at the momnent
+  # -------------------------------------------------
+  selector:
+    matchLabels:
+      app: redis # All pods/deployments that match label app=nginx to create a connection
+  template:
+    # -----------------------------------------------
+    # This entire configuration is associated with
+    # a pod. Config within a config
+    # -----------------------------------------------
+    metadata:
+      labels:
+        app: redis # These are just labels
+    # -----------------------------------------------
+    # Blueprint for a pod ...
+    # -----------------------------------------------
+    spec:
+      containers:
+        - name: redis
+          image: redis:latest
+          volumeMounts:
+            - mountPath: "/data"
+              name: shared-data
+      volumes:
+        - name: shared-data
+          persistentVolumeClaim: 
+            claimName: pv0001

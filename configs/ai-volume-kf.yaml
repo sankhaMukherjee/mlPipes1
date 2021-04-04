@@ -1,0 +1,13 @@
+# obtained from https://minikube.sigs.k8s.io/docs/handbook/persistent_volumes/
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv0001
+spec:
+  storageClassName: standard
+  accessModes:
+    - ReadWriteOnce # Only a single node can read/write
+  capacity:
+    storage: 1Gi
+  hostPath:
+    path: /data/pv0001/

@@ -1,0 +1,37 @@
+inputs: #List of input specs. Each input spec is a map.
+- {
+    name        : Value 1,
+    type        : Float,
+    default     : '7',
+    description : 'Some description for parameter 1'
+  }
+- {
+    name: Value 2,
+    type        : Float,
+    default     : '7',
+    description : 'Some description for parameter 2'
+  }
+outputs:
+- {
+    name: Output 1,
+    description: 'Output of the component'
+  }
+implementation:
+  container:
+    image: omolluska/test-kubeflow-add:latest
+    # command is a list of strings (command-line arguments).
+    # The YAML language has two syntaxes for lists and you can use either of them.
+    # Here we use the "flow syntax" - comma-separated strings inside square brackets.
+    command: [
+      python3, /pipelines/component/src/program.py, # Path of the program inside the container
+      
+      --value1, 
+      {inputValue: Value 1}, # Refers to the "Value 1" input
+
+      --value2, 
+      {inputValue: Value 2}, # Refers to the "Value 1" input
+
+      --output-path, 
+      {outputPath: Output 1}, # Refers to the "Output 1" output
+
+    ]

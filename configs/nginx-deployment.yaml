@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 4
+  # This is used for creating connections ...
+  selector:
+    matchLabels:
+      app: nginx # All pods/deployments that match label app=nginx to create a connection
+  template:
+    # -----------------------------------------------
+    # This entire configuration is associated with
+    # a pod. Config within a config
+    # -----------------------------------------------
+    metadata:
+      labels:
+        app: nginx # These are just labels
+    # -----------------------------------------------
+    # Blueprint for a pod ...
+    # -----------------------------------------------
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.16
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SOME_ENV_VAR
+              valueFrom:
+                secretKeyRef:
+                   name: mongodb-secret
+                   key: mongo-root-username
