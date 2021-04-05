@@ -10,5 +10,5 @@ spec:
     - ReadWriteOnce # Only a single node can read/write
   resources:
     requests:
-      storage: 0.8Gi
+      storage: 4Gi
   volumeName: pv0001

@@ -8,6 +8,6 @@ spec:
   accessModes:
     - ReadWriteOnce # Only a single node can read/write
   capacity:
-    storage: 1Gi
+    storage: 5Gi
   hostPath:
     path: /data/pv0001/
