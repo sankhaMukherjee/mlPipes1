@@ -1,0 +1,26 @@
+inputs: #List of input specs. Each input spec is a map.
+- {
+    name        : file,
+    description : 'file that needs to be converted'
+  }
+outputs:
+- {
+    name: Output 1,
+    description: 'Output of the component'
+  }
+implementation:
+  container:
+    image: omolluska/test-kubeflow-add:latest
+    # command is a list of strings (command-line arguments).
+    # The YAML language has two syntaxes for lists and you can use either of them.
+    # Here we use the "flow syntax" - comma-separated strings inside square brackets.
+    command: [
+      python3, /pipelines/component/src/program.py, --toNumpy, # Path of the program inside the container
+      
+      --file, 
+      {inputValue: file}, # Refers to the "Value 1" input
+
+      --output-path, 
+      {outputPath: Output 1}, # Refers to the "Output 1" output
+
+    ]
