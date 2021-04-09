@@ -29,11 +29,15 @@ spec:
       containers:
         - name: read-data
           image: omolluska/test-kubeflow-read-data:latest
-          imagePullPolicy: Never
-          volumeMounts:
-            - mountPath: "/pipelines/component/src/data"
-              name: volume-to-read-from-001
-      volumes:
-        - name: volume-to-read-from-001
-          persistentVolumeClaim: 
-            claimName: pvc0001
+          imagePullPolicy: IfNotPresent
+          command: ["python3"]
+          args: ["program.py"]
+        # volumeMounts:
+        #   - mountPath: "/pipelines/component/src/data"
+        #     name: volume-to-read-from-001
+      imagePullSecrets:
+        - name: docker-secret-kube
+      # volumes:
+      #   - name: volume-to-read-from-001
+      #     persistentVolumeClaim: 
+      #       claimName: pvc0001

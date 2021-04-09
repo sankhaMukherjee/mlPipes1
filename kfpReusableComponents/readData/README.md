@@ -5,8 +5,22 @@ data to a PVC within kubernetes. The most important thing to
 rememebr is that this pod should be run within the `kubeflow`
 namespace.
 
+Note that we have configured secrets for downloading images:
+
+```
+NAME                  TYPE                                  DATA   AGE
+default-token-cp28l   kubernetes.io/service-account-token   3      7d19h
+dockersecret          kubernetes.io/dockerconfigjson        1      36m
+regcred               kubernetes.io/dockerconfigjson        1      89s
+```
+
+We shall use the last one `regcred` for downloading the 
+
 The persistent volume claim has already been generated and is shown
 in the definition below. This is present in the file `ai-volume-claim-kf.yaml`
+
+omolluska/test-kubeflow-read-data:latest
+
 
 ```YAML
 apiVersion: v1

@@ -174,6 +174,36 @@ For this, check the specific information within ECR
 
 aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin 387826921024.dkr.ecr.ap-southeast-1.amazonaws.com
 
+# Kubernetes Secrets
+
+https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+
+`docker login`
+
+```bash
+kubectl create secret generic regcred \
+    --from-file=.dockerconfigjson=/home/ubuntu/.docker/config.json \
+    --type=kubernetes.io/dockerconfigjson
+```
+
+
+```bash
+ kubectl create secret generic docker-secret-kube --from-file=.dockerconfigjson=/home/ubuntu/.docker/config.json --type=kubernetes.io/dockerconfigjson --namespace=kubeflow
+```
+
+```bash
+# get kubectl secrets ....
+kubectl secrets get 
+
+NAME                  TYPE                                  DATA   AGE
+default-token-cp28l   kubernetes.io/service-account-token   3      7d19h
+dockersecret          kubernetes.io/dockerconfigjson        1      36m
+regcred               kubernetes.io/dockerconfigjson        1      89s
+```
+
+Note that at this time the regcred secret has been created
+
+
 # References
 
 1. [Minikube installation](https://www.notion.so/Minikube-423387aee1d247d8a136eaf1fb673678)
