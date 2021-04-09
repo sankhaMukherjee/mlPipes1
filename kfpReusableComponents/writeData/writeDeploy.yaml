@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: read-data
+  name: write-data
   namespace: kubeflow
   labels:
-    app: read-data
+    app: write-data
 spec:
   replicas: 1
   # -------------------------------------------------
@@ -13,7 +13,7 @@ spec:
   # -------------------------------------------------
   selector:
     matchLabels:
-      app: read-data # All pods/deployments that match label app=nginx to create a connection
+      app: write-data # All pods/deployments that match label app=nginx to create a connection
   template:
     # -----------------------------------------------
     # This entire configuration is associated with
@@ -21,13 +21,13 @@ spec:
     # -----------------------------------------------
     metadata:
       labels:
-        app: read-data # These are just labels
+        app: write-data # These are just labels
     # -----------------------------------------------
     # Blueprint for a pod ...
     # -----------------------------------------------
     spec:
       containers:
-        - name: read-data
+        - name: write-data
           image: omolluska/test-kubeflow-write-data:latest
           imagePullPolicy: IfNotPresent
           command: ["python3"]

@@ -12,7 +12,7 @@ def main():
         print('+---------------------------------')
         
         with open('data/test.txt', 'w') as fOut:
-            fout.write(f'Current time = {now}')
+            fOut.write(f'Current time = {now}')
             fOut.write('This is the first line\n')
             fOut.write('This is the second line\n')
             fOut.write('This is the last line\n')
