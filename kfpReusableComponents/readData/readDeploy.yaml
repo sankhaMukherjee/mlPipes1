@@ -32,9 +32,9 @@ spec:
           imagePullPolicy: IfNotPresent
           command: ["python3"]
           args: ["program.py"]
-        volumeMounts:
-          - mountPath: "/pipelines/component/src/data"
-            name: volume-to-read-from-001
+          volumeMounts:
+            - mountPath: "/pipelines/component/src/data"
+              name: volume-to-read-from-001
       imagePullSecrets:
         - name: docker-secret-kube
       volumes:
