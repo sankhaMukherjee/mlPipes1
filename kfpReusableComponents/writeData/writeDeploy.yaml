@@ -1,4 +1,4 @@
-apiVersion: apps/v1
+apiVersion: batch/v1
 kind: Job
 metadata:
   name: write-data
@@ -6,7 +6,6 @@ metadata:
   labels:
     app: write-data
 spec:
-  replicas: 1
   # -------------------------------------------------
   # This is used for creating connections ...
   # This doesn't need connections at the momnent
@@ -37,6 +36,7 @@ spec:
               name: volume-to-read-from-001
       imagePullSecrets:
         - name: docker-secret-kube
+      restartPolicy: Never
       volumes:
         - name: volume-to-read-from-001
           persistentVolumeClaim: 
