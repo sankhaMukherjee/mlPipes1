@@ -1,4 +1,4 @@
-# Write data
+# Read data
 
 
 For the images, its just better that we download the required
@@ -6,6 +6,8 @@ docker images to the local machine, and then install that into
 kubeflow through `kind`
 
 The way to do that would be with the commands:
+
+Reference: https://kind.sigs.k8s.io/docs/user/quick-start/#loading-an-image-into-your-cluster
 
 ```bash
 docker pull omolluska/test-kubeflow-read-data:latest
